@@ -1,0 +1,30 @@
+version: '2.1'
+
+services:
+  localstack_14_1:
+    image: localstack/localstack:0.14.1
+    ports:
+      - "4566:4566"
+    environment:
+      - LOCALSTACK_SERVICES=kms
+      - KMS_PROVIDER=local-kms
+    volumes:
+      - ./seed.yaml:/init/seed.yaml
+  localstack_14_2_broken:
+    image: localstack/localstack:0.14.2
+    ports:
+      - "4567:4566"
+    environment:
+      - LOCALSTACK_SERVICES=kms
+      - KMS_PROVIDER=local-kms
+    volumes:
+      - ./seed.yaml:/init/seed.yaml
+  localstack_14_2_fixed:
+    image: localstack/localstack:0.14.2
+    ports:
+      - "4568:4566"
+    environment:
+      - LOCALSTACK_SERVICES=kms
+      - KMS_PROVIDER=kms-local
+    volumes:
+      - ./seed.yaml:/init/seed.yaml
